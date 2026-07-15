@@ -2,6 +2,7 @@ package com.codingshuttle.sathwik.webtutorial.controllers;
 
 import com.codingshuttle.sathwik.webtutorial.dto.EmployeeDTO;
 import com.codingshuttle.sathwik.webtutorial.services.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public EmployeeDTO createNewEmployee (@RequestBody EmployeeDTO inputEmployee) {
+    public EmployeeDTO createNewEmployee (@RequestBody @Valid EmployeeDTO inputEmployee) {
 
         return employeeService.save(inputEmployee);
     }

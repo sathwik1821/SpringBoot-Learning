@@ -1,5 +1,7 @@
 package com.codingshuttle.sathwik.webtutorial.dto;
 
+import com.codingshuttle.sathwik.webtutorial.annotations.EmployeeAgeValidation;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +12,10 @@ import java.time.LocalDate;
 public class EmployeeDTO {
 
     private Long ID;
+    @NotNull(message = "name must be specified")
     private String name;
     private  String email;
+    @EmployeeAgeValidation
     private  Integer age;
     private LocalDate dateOfJoining;
     private Boolean isActive;
