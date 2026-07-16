@@ -1,13 +1,18 @@
 package com.codingshuttle.sathwik.webtutorial.controllers;
 
 import com.codingshuttle.sathwik.webtutorial.dto.EmployeeDTO;
+import com.codingshuttle.sathwik.webtutorial.exceptions.ResourceNotFoundException;
 import com.codingshuttle.sathwik.webtutorial.services.EmployeeService;
 import jakarta.validation.Valid;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -21,12 +26,14 @@ public class EmployeeController {
 
     @GetMapping(path="/{employeeID}")
     public ResponseEntity<EmployeeDTO> getEmployeeByID(@PathVariable Long employeeID){
-        EmployeeDTO employee = employeeService.findById(employeeID);
-        if (employee == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(employee);
+        Optional<EmployeeDTO> employeeDTO = employeeService.findById(employeeID);
+
+        return employeeDTO
+                .map(ResponseEntity::ok)
+                .orElseThrow(()->new ResourceNotFoundException("Employee with the ID " + employeeID + " does not exist"));
     }
+
+
 
 
     @GetMapping
