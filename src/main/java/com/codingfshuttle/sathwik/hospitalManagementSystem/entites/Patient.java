@@ -7,9 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @ToString
@@ -34,5 +37,12 @@ public class Patient {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @OneToOne //owning side
+    @JoinColumn(name = "patient_insurance", unique = true)
+    private Insurance insurance;
+
+    @OneToMany(mappedBy = "patient") //inverse side
+    private Set<Appointment> appointments=new HashSet<>();
 
 }
