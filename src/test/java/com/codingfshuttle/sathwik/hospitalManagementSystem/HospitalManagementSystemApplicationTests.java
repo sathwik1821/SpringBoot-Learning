@@ -15,33 +15,4 @@ import java.util.TimeZone;
 @SpringBootTest
 class HospitalManagementSystemApplicationTests {
 
-	static {
-		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
-	}
-
-	@Autowired
-	private PatientRepository patientRepository;
-
-	@Test
-	void testPatient() {
-
-		//test where we dont use any projection
-		List<Patient> patientList = patientRepository.findAll();
-
-		//test where we use interface type DTO projection
-		List<IPatientInfo> patientListInterfaceList= patientRepository.getAllPatientsInfo();
-
-		//test where we use class type DTO projection
-		List<CPatientInfo> patientInfoConcreteList=patientRepository.getAllPatientsInfoConcrete();
-
-		//test where we use dto for aggregate results
-		List<BloodGroupStats> bloodGroupStatsList=patientRepository.getBloodGroupStats();
-
-		for (BloodGroupStats p : bloodGroupStatsList) {
-			System.out.println(p.getBloodGroupType() + " - " + p.getCount());
-		}
-	}
-
-
-
 }

@@ -3,9 +3,7 @@ package com.codingfshuttle.sathwik.hospitalManagementSystem.entites;
 
 import com.codingfshuttle.sathwik.hospitalManagementSystem.entites.type.BloodGroupType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,9 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@ToString
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Patient {
 
     @Id
@@ -38,11 +38,11 @@ public class Patient {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToOne //owning side
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY) //owning side
     @JoinColumn(name = "patient_insurance", unique = true)
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient") //inverse side
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER) //inverse side
     private Set<Appointment> appointments=new HashSet<>();
 
 }

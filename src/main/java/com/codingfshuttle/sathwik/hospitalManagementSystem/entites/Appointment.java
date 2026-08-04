@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Appointment {
 
     @Id
@@ -28,7 +29,7 @@ public class Appointment {
     @JoinColumn(nullable = false)
     private Patient patient;
 
-    @ManyToOne //owning side
+    @ManyToOne(fetch = FetchType.LAZY) //owning side
     @JoinColumn(nullable = false)
     private Doctor doctor;
 
