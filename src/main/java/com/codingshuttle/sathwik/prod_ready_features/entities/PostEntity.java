@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @Getter
-public class PostEntity {
+public class PostEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
