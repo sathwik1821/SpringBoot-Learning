@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
                 .message(exception.getMessage())
                 .build();
 
-        return  new ResponseEntity<>()
+        return buildErrorResponseEntity(apiError);
     }
 
     private ResponseEntity<ApiResponse<?>> buildErrorResponseEntity(ApiError apiError) {
