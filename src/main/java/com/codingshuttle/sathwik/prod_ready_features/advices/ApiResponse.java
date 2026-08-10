@@ -1,4 +1,4 @@
-package com.codingshuttle.sathwik.webtutorial.advices;
+package com.codingshuttle.sathwik.prod_ready_features.advices;
 
 import lombok.Data;
 
