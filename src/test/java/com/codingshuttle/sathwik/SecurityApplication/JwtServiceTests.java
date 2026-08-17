@@ -15,7 +15,7 @@ public class JwtServiceTests {
 
     @Test
     void getUserDetails() {
-        User user=new User(18L,"sathwik@gmail.com","sathwik@18");
+        User user=new User(18L,"sathwik@gmail.com","sathwik@18","sathwik");
 
         String token=jwtService.generateToken(user);
         System.out.println(token);

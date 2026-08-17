@@ -22,12 +22,14 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(unique = true)
-    String email;
+    private String email;
 
-    String password;
+    private String password;
+
+    private String name;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
