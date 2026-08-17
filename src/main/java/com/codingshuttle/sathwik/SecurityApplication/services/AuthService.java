@@ -21,7 +21,7 @@ public class AuthService {
 
         User user= (User) authentication.getPrincipal();
         assert user != null;
-        return jwtService.generateToken(user);
+        return "Bearer "+jwtService.generateToken(user);
 
     }
 }

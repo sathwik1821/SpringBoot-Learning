@@ -49,5 +49,10 @@ public class UserService implements UserDetailsService {
 
     }
 
+    public User getUserByUserId(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return user.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
 
 }
