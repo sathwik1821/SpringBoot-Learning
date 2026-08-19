@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.codingshuttle.sathwik.SecurityApplication.dto.enums.Role;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -41,8 +43,14 @@ public class UserService implements UserDetailsService {
             throw new BadCredentialsException("User already exists with username " + signUpDTO.getEmail());
         }
 
-        User newUser= modelMapper.map(signUpDTO, User.class);
+        User newUser = modelMapper.map(signUpDTO, User.class);
         newUser.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
+        // Use roles from request, default to USER if none provided
+        if (signUpDTO.getRoles() == null || signUpDTO.getRoles().isEmpty()) {
+            newUser.setRoles(Set.of(Role.USER));
+        } else {
+            newUser.setRoles(signUpDTO.getRoles());
+        }
 
         User savedUser = userRepository.save(newUser);
         return modelMapper.map(savedUser, UserDTO.class);

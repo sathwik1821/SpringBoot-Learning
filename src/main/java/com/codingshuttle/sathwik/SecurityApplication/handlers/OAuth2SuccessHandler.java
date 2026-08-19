@@ -1,5 +1,6 @@
 package com.codingshuttle.sathwik.SecurityApplication.handlers;
 
+import com.codingshuttle.sathwik.SecurityApplication.dto.enums.Role;
 import com.codingshuttle.sathwik.SecurityApplication.entities.User;
 import com.codingshuttle.sathwik.SecurityApplication.repositories.UserRepository;
 import com.codingshuttle.sathwik.SecurityApplication.services.JwtService;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -40,6 +42,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             User newUser = new User();
             newUser.setEmail(email);
             newUser.setName(name);
+            // Assign USER role by default for OAuth2 signups
+            newUser.setRoles(Set.of(Role.USER));
             User savedUser = userRepository.save(newUser);
             log.info("Successfully saved new user to DB: {}", savedUser.getEmail());
             return savedUser;

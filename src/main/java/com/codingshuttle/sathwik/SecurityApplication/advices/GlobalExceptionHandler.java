@@ -5,6 +5,7 @@ import com.codingshuttle.sathwik.SecurityApplication.exceptions.RescourceNotFoun
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -30,7 +31,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError,HttpStatus.UNAUTHORIZED);
     }
 
-
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleAccessDeniedException(AccessDeniedException ex) {
+        ApiError apiError=new ApiError("Access Denied: You do not have permission to access this resource",HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(apiError,HttpStatus.FORBIDDEN);
+    }
 
 
 }

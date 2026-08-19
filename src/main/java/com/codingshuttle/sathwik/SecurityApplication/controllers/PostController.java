@@ -3,6 +3,7 @@ package com.codingshuttle.sathwik.SecurityApplication.controllers;
 import com.codingshuttle.sathwik.SecurityApplication.dto.PostDTO;
 import com.codingshuttle.sathwik.SecurityApplication.services.PostService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,6 @@ public class PostController {
 
     @GetMapping
     public List<PostDTO> findAllPosts() {
-
         return postService.findAllPosts();
     }
 
@@ -27,7 +27,6 @@ public class PostController {
 
     @PostMapping
     public PostDTO createNewPost(@RequestBody PostDTO postDTO) {
-
         return postService.createNewPost(postDTO);
     }
 
