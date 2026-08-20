@@ -45,12 +45,8 @@ public class UserService implements UserDetailsService {
 
         User newUser = modelMapper.map(signUpDTO, User.class);
         newUser.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
-        // Use roles from request, default to USER if none provided
-        if (signUpDTO.getRoles() == null || signUpDTO.getRoles().isEmpty()) {
-            newUser.setRoles(Set.of(Role.USER));
-        } else {
-            newUser.setRoles(signUpDTO.getRoles());
-        }
+        newUser.setRoles(signUpDTO.getRoles());
+        newUser.setPermissions(signUpDTO.getPermissions());
 
         User savedUser = userRepository.save(newUser);
         return modelMapper.map(savedUser, UserDTO.class);

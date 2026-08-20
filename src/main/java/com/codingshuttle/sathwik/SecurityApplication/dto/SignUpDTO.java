@@ -6,6 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import lombok.Data;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 
@@ -16,4 +17,5 @@ public class SignUpDTO {
     private String name;
 
     private Set<Role> roles;
+    private Set<Permission> permissions;
 }
